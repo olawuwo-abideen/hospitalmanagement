@@ -81,7 +81,7 @@ description:
 'User profile updated successfully',
 })
 @UseGuards(AuthGuard)
-@Roles(UserRole.DOCTOR)
+@Roles(UserRole.DOCTOR, UserRole.NURSE, UserRole.RECEPTIONIST)
 public async updateStaffProfile(
 @Body() payload: UpdateStaffProfileDto,
 @CurrentUser() user: User,

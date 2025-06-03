@@ -68,6 +68,16 @@ admin,
 public createAccessToken(admin: Admin): string {
 return this.jwtService.sign({ sub: admin.id });
 }
+
+public async getUser(id: string): Promise<{ message: string; user: User }> {
+const user = await this.userRepository.findOne({ where: { id } });
+if (!user) {
+throw new NotFoundException(`User with ID ${id} not found`);
+}
+return { message: 'User retrieved successfully', user };
+}
+
+
 public async deleteUser(params: { id: string }): Promise<{ message: string }> {
 const { id } = params;
 const user = await this.userRepository.findOne({ where: { id } });

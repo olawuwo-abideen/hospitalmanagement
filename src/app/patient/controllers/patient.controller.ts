@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, HttpStatus, Param,UseGuards, Query } from '@nestjs/common';
+import { Controller, Delete, Get, HttpStatus, Param,UseGuards, Query, Post } from '@nestjs/common';
 import { PatientService } from '../services/patient.service';
 import { IsValidUUIDPipe } from '../../../shared/pipes/is-valid-uuid.pipe';
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -15,7 +15,7 @@ export class PatientController {
 constructor(private readonly patientService: PatientService){}
 
 
-@Get('patients')
+@Get('')
 @ApiOperation({ summary: 'Get all patients' })
 @ApiResponse({
 status: HttpStatus.OK,
@@ -29,7 +29,7 @@ async getAllPatients(@Query() paginationData: PaginationDto) {
 return await this.patientService.getAllPatients(paginationData);
 }
 
-@Get('search-patients')
+@Get('search')
 @ApiOperation({ summary: 'Search patients' })
 @ApiResponse({
 status: HttpStatus.OK,
@@ -58,8 +58,38 @@ public async getPatient(
 @Param('id', IsValidUUIDPipe) id: string,
 ) {
 return await this.patientService.getPatient(id)
-
 }
+
+
+
+
+  @Post('admit/:patientId')
+  @ApiOperation({ summary: 'Admit a patient (doctor only)' })
+  @Roles(UserRole.DOCTOR, UserRole.NURSE)
+  async admitPatient(@Param('patientId') patientId: string) {
+    return this.patientService.admitPatient(patientId);
+  }
+
+  @Post('discharge/:patientId')
+  @ApiOperation({ summary: 'Discharge a patient (doctor only)' })
+  @Roles(UserRole.DOCTOR)
+  async dischargePatient(@Param('patientId') patientId: string) {
+    return this.patientService.dischargePatient(patientId);
+  }
+
+  @Get('history/:patientId')
+  @ApiOperation({ summary: 'Get admission history of a patient' })
+  @Roles(UserRole.DOCTOR, UserRole.NURSE)
+  async getHistory(@Param('patientId') patientId: string) {
+    return this.patientService.getAdmissionHistory(patientId);
+  }
+
+  @Get('status/:patientId')
+  @ApiOperation({ summary: 'Get current admission status of a patient' })
+  @Roles(UserRole.DOCTOR, UserRole.NURSE)
+  async getStatus(@Param('patientId') patientId: string) {
+    return this.patientService.getCurrentStatus(patientId);
+  }
 
 
 }

@@ -13,6 +13,7 @@ import { Prescription } from './prescription.entity';
 import { MedicalRecord } from './medical-record.entity';
 import { Appointment } from './appointment.entity';
 import { AvailabilitySlot } from './availabilityslot.entity';
+import { Admission } from './admission.dto';
 
 export enum UserRole {
 PATIENT = 'patient',
@@ -89,6 +90,10 @@ appointments?: Appointment[];
 
 @OneToMany(() => AvailabilitySlot, (slot) => slot.user)
 availabilitySlots: AvailabilitySlot[];
+
+@OneToMany(() => Admission, (admission) => admission.patient)
+admissions: Admission[];
+
 
 @Column()
 @Exclude()

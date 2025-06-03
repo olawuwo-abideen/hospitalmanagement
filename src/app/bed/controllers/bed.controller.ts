@@ -1,8 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { IsValidUUIDPipe } from 'src/shared/pipes/is-valid-uuid.pipe';
 import { BedService } from '../services/bed.service';
-import { CreateBedDto, UpdateBedDto } from '../dto/bed.dto';
 import { PaginationDto } from 'src/shared/dtos/pagination.dto';
 
 

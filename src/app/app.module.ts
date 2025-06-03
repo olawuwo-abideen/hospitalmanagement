@@ -29,14 +29,19 @@ limit: 10,
 TypeOrmModule.forRootAsync({
 useClass: TypeOrmConfigService,
 }),
+
 AuthModule,
 UserModule,
 AdminModule,  
 PatientModule, 
 BedModule,  
 AccountingModule, 
-PatientModule, AppointmentModule, 
-AvailabilitySlotModule, RecordModule, WardModule, ReviewModule
+PatientModule, 
+AppointmentModule, 
+AvailabilitySlotModule, 
+RecordModule, 
+WardModule, 
+ReviewModule
 
 ],
 controllers: [],

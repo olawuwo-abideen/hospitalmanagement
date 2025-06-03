@@ -28,6 +28,15 @@ return await this.adminService.deleteUser({ id });
 }
 
 @ApiBearerAuth()
+@Get(':id')
+@ApiOperation({ summary: 'Get a user' })
+public async getUser(
+@Param('id', IsValidUUIDPipe) id: string,
+) {
+return await this.adminService.getUser(id)
+}
+
+@ApiBearerAuth()
 @Get('staff/status/:id')
 @ApiOperation({ summary: 'Get staff account activation status' })
 async getStaffAccountStatus(

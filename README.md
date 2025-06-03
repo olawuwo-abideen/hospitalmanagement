@@ -104,6 +104,7 @@ The following API endpoints are available:
 
 - **POST availabilityslot**: Set availability slots.
 - **GET availabilityslot**: Get doctor availability.
+- **GET /availabilityslot/:id**: Get an availability slot.
 - **PUT /availabilityslot/:id**: Update availability slot.
 - **DELETE /availabilityslot/:id**: Delete availability slot.
 
@@ -131,5 +132,23 @@ The following API endpoints are available:
 **Medical Record Endpoints**
 
 - **POST /patient/:id**: Add a medical record of a patient.
-- **GET /patient/:id**: Get a medical record of a patient..
-- **PUT /patient/:id**: Update  a medical record of a patient..
+- **GET /patient/:id**: Get a medical record of a patient.
+- **PUT /patient/:id**: Update  a medical record of a patient.
+
+**Bed Management Endpoints**
+
+- **GET /bed/available**: Get available bed.
+- **GET /bed**: Get all beds.
+- **GET /bed/total**: Get the total number of bed.
+- **GET /bed/:id**: Get a bed.
+
+
+**Patient Management Endpoints**
+
+- **GET /patient/**: Get all patient.
+- **GET /patient/search**: Search patient by name.
+- **GET /patient/:id**: Get a patient.
+- **POST /patient/admit/:patientId**: Admit a patient.
+- **POST /patient/discharge/:patientId**: Discharge a patient.
+- **GET /patient/history/:patientId**: Get a patient history.
+- **GET /patient/status/:patientId**: Get a patient status.
