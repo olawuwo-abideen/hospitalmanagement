@@ -73,7 +73,7 @@ The following API endpoints are available:
 - **POST /admin/login**: Admin login.
 - **GET /admin/delete/:id**: Delete a user.
 - **GET /admin/staff/status/:id**: Get staff account status.
-- **PATCH /admin/staff/activate/:idd**: Update staff account status.
+- **PATCH /admin/staff/activate/:id**: Update staff account status.
 - **POST /admin/bed**: Create bed.
 - **PUT /admin/bed/:id**: Update bed.
 - **DELETE /admin/bed/:id**: Delete bed.
@@ -88,7 +88,6 @@ The following API endpoints are available:
 
 - **POST /auth/signup**: User signup.
 - **POST /auth/login**: User login.
-- **POST /auth/logout**: User logout.
 - **POST /auth/forgot-password**: User forget password.
 - **POST /auth/reset-password**: User reset password.
 

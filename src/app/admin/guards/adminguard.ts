@@ -23,6 +23,8 @@ export class AdminAuthGuard implements CanActivate {
     private readonly adminService: AdminService,
   ) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    console.log('🛡️ AdminAuthGuard triggered');
+
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),

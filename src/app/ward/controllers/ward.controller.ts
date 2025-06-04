@@ -21,7 +21,7 @@ constructor(private wardService: WardService) {}
 @ApiOperation({ summary: 'Get ward' })
 @ApiQuery({ name: 'page', required: false, example: 1 })
 @ApiQuery({ name: 'pageSize', required: false, example: 10 })
-public async getAlbums(@Query() paginationDto: PaginationDto) {
+public async getWards(@Query() paginationDto: PaginationDto) {
   return await this.wardService.getWards(paginationDto);
 }
 

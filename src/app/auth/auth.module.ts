@@ -14,7 +14,7 @@ import { EmailModule } from '../../shared/modules/email/email.module';
 
 @Module({
 imports: [
-forwardRef(() => UserModule), 
+// forwardRef(() => UserModule), 
 JwtModule.registerAsync({
 inject: [ConfigService],
 useFactory: async (configService: ConfigService) => ({
@@ -31,11 +31,11 @@ EmailModule,
 controllers: [AuthController],
 providers: [
 AuthService,
-UserService,
-{
-provide: APP_GUARD,
-useClass: AuthGuard,
-},
+UserService,AuthGuard
+// {
+// provide: APP_GUARD,
+// useClass: AuthGuard,
+// },
 ],
 })
 export class AuthModule {}

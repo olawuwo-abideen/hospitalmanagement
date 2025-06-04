@@ -123,18 +123,23 @@ async dischargePatient(patientId: string): Promise<{ message: string }> {
   return { message: 'Patient discharged successfully.' };
 }
 
-
-async getAdmissionHistory(patientId: string): Promise<{ message: string; history: Admission[] }> {
+async getAdmissionHistory(patientId: string): Promise<{ message: string; history: { admittedAt: Date; dischargedAt: Date | null }[] }> {
   const patient = await this.userRepository.findOne({ where: { id: patientId } });
 
   if (!patient) {
     throw new NotFoundException(`Patient with ID ${patientId} not found.`);
   }
 
-  const history = await this.admissionRepository.find({
+  const admissions = await this.admissionRepository.find({
     where: { patient: { id: patientId } },
     order: { admittedAt: 'DESC' },
+    select: ['admittedAt', 'dischargedAt'], // Only retrieve relevant fields
   });
+
+  const history = admissions.map(adm => ({
+    admittedAt: adm.admittedAt,
+    dischargedAt: adm.dischargedAt || null,
+  }));
 
   return {
     message: 'Admission history retrieved successfully.',

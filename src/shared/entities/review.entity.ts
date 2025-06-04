@@ -7,9 +7,6 @@ export class Review {
 @PrimaryGeneratedColumn('uuid')
 id: string;
 
-@Column({ type: 'uuid', name: 'user_id', nullable: true })
-userId: string;
-
 
 @ManyToOne(() => User)
 @JoinColumn({ name: 'user_id' })

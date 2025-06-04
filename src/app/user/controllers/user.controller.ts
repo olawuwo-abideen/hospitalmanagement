@@ -23,6 +23,7 @@ import { Roles } from '../../../shared/decorators/roles.decorator';
 
 
 @ApiBearerAuth()
+@UseGuards(AuthGuard)
 @ApiTags('User')
 @Controller('user')
 export class UserController {
@@ -62,8 +63,8 @@ status: HttpStatus.OK,
 description:
 'User profile updated successfully',
 })
-@UseGuards(AuthGuard)
-@Roles()
+@UseGuards(AuthGuard) 
+@Roles(UserRole.PATIENT)
 public async updateProfile(
 @Body() payload: UpdateProfileDto,
 @CurrentUser() user: User,

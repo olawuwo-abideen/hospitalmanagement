@@ -66,8 +66,9 @@ admin,
 }
 
 public createAccessToken(admin: Admin): string {
-return this.jwtService.sign({ sub: admin.id });
+return this.jwtService.sign({ sub: admin.id, role: 'admin' });
 }
+
 
 public async getUser(id: string): Promise<{ message: string; user: User }> {
 const user = await this.userRepository.findOne({ where: { id } });
@@ -101,21 +102,36 @@ accountActivation: user.accountActivation,
 }
 
 
+public async activateStaffAccount(id: string): Promise<{ message: string }> {
+  const user = await this.userRepository.findOne({ where: { id: id } });
+  console.log('Activating user with ID:', id, 'Found user:', user);
+  if (!user) {
+    throw new NotFoundException(`User with ID ${id} not found.`);
+  }
+  if (user.accountActivation === true) {
+    return { message: `Account is already activated for user with ID ${id}.` };
+  }
+  user.accountActivation = true;
+  await this.userRepository.save(user);
+  return { message: `Staff account activated successfully for user with ID ${id}.` };
+}
 
-public async activateStaffAccount(
-id: string,
-): Promise<{ message: string }> {
-const user = await this.userRepository.findOne({ where: { id: id } });
-if (!user) {
-throw new NotFoundException(`User with ID ${id} not found.`);
-}
-if (user.accountActivation === true) {
-return { message: `Account is already activated for user with ID ${id}.` };
-}
-user.accountActivation = true;
-await this.userRepository.save(user);
-return { message: `Staff account activated successfully for user with ID ${id}.` };
-}
+
+
+// public async activateStaffAccount(
+// id: string,
+// ): Promise<{ message: string }> {
+// const user = await this.userRepository.findOne({ where: { id: id } });
+// if (!user) {
+// throw new NotFoundException(`User with ID ${id} not found.`);
+// }
+// if (user.accountActivation === true) {
+// return { message: `Account is already activated for user with ID ${id}.` };
+// }
+// user.accountActivation = true;
+// await this.userRepository.save(user);
+// return { message: `Staff account activated successfully for user with ID ${id}.` };
+// }
 
 
 
@@ -160,14 +176,13 @@ const savedWard = await this.wardRepository.save(ward);
 return { message: 'Ward created successfully', ward: savedWard };
 }
 
-public async updateWard(id: string, data: UpdateWardDto): Promise<{ message: string; albums: Ward }> {
+public async updateWard(id: string, data: UpdateWardDto): Promise<{ message: string; ward: Ward }> {
 const updateResult = await this.wardRepository.update(id, data);
 if (updateResult.affected === 0) {
-throw new NotFoundException(`return { message: 'Ward updated successfully', albums: updatedSong };
-with ID ${id} not found`);
+throw new NotFoundException(`Ward with ID ${id} not found`);
 }
 const updatedWard = await this.wardRepository.findOne({ where: { id } });
-return { message: 'Ward updated successfully', albums: updatedWard };
+return { message: 'Ward updated successfully', ward: updatedWard };
 }
 
 public async deleteWard(id: string): Promise<{ message: string }> {

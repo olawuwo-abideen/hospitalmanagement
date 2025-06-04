@@ -48,9 +48,7 @@ async function bootstrap() {
     res.redirect('/api-docs');
   });
 
-  await app.listen(port, '0.0.0.0')  | 3000;
+  await app.listen(port, '0.0.0.0')  || 3000;
 
 }
 bootstrap();
-
-

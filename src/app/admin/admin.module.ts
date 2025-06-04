@@ -11,10 +11,12 @@ import { Bed } from 'src/shared/entities/bed.entity';
 import { Ward } from 'src/shared/entities/ward.entity';
 import { WardModule } from '../ward/ward.module';
 import { BedModule } from '../bed/bed.module';
+import { AdminAuthGuard } from './guards/adminguard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
 imports: [
-forwardRef(() => UserModule), 
+// forwardRef(() => UserModule), 
 JwtModule.registerAsync({
 inject: [ConfigService],
 useFactory: async (configService: ConfigService) => ({
@@ -29,10 +31,16 @@ UserModule,
 ConfigModule,
 WardModule,
 BedModule,
-UserModule,
-JwtModule.register({}),
+UserModule
 ],
 controllers: [AdminController],
-providers: [AdminService]
+providers: [
+AdminService,
+AdminAuthGuard
+// {
+// provide: APP_GUARD,
+// useClass: AdminAuthGuard
+// },
+]
 })
 export class AdminModule {}

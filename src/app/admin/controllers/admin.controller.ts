@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
 import { AdminService } from '../services/admin.service';
 import { LoginDto } from '../../auth/dto/login.dto';
 import { Public } from '../../../shared/decorators/public.decorator';
@@ -6,9 +6,11 @@ import { CreateBedDto, UpdateBedDto } from 'src/app/bed/dto/bed.dto';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { IsValidUUIDPipe } from 'src/shared/pipes/is-valid-uuid.pipe';
 import { CreateWardDto, UpdateWardDto } from 'src/app/ward/dto/ward.dto';
-import { identity } from 'rxjs';
+import { AdminAuthGuard } from '../guards/adminguard';
+
 
 @Controller('admin')
+@UseGuards(AdminAuthGuard)
 export class AdminController {
 constructor(private readonly adminService: AdminService) {}
 
@@ -28,7 +30,7 @@ return await this.adminService.deleteUser({ id });
 }
 
 @ApiBearerAuth()
-@Get(':id')
+@Get('user/:id')
 @ApiOperation({ summary: 'Get a user' })
 public async getUser(
 @Param('id', IsValidUUIDPipe) id: string,
@@ -49,7 +51,7 @@ return this.adminService.getStaffAccountStatus(id);
 @Patch('staff/activate/:id')
 @ApiOperation({ summary: 'Activate staff account' })
 async activateStaffAccount(
-@Param('userId', IsValidUUIDPipe) id: string,
+@Param('id', IsValidUUIDPipe) id: string,
 ) {
 return this.adminService.activateStaffAccount(id);
 }
