@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
-import { User } from './user.entity';
+import { Exclude, instanceToPlain } from 'class-transformer';
 
 
 export enum DrugCategory {
@@ -36,13 +36,14 @@ description: string;
 @Column({ nullable: true })
 manufacturer: string;
 
+@Exclude()
 @Column({ type: 'int', default: 10 })
 lowStockThreshold: number;
 
 @Column('int')
 quantity: number;
 
-@Column({ type: 'date', nullable: true })
+@Column({ type: 'datetime', nullable: true })
 expiryDate: Date;
 
 @Column({ type: 'enum', enum: DrugCategory})
@@ -53,4 +54,8 @@ createdAt: Date;
 
 @UpdateDateColumn()
 updatedAt: Date;
+
+toJSON?(): Record<string, any> {
+return instanceToPlain(this);
+}
 }

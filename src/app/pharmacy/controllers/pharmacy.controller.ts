@@ -3,14 +3,14 @@ import { ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags } 
 import { CreateDrugDto, RestockDrugDto, UpdateDrugDto } from '../dto/drug.dto';
 import { AuthGuard } from '../../../app/auth/guards/auth.guard';
 import { Roles } from 'src/shared/decorators/roles.decorator';
-import { User, UserRole } from 'src/shared/entities/user.entity';
+import { UserRole } from 'src/shared/entities/user.entity';
 import { IsValidUUIDPipe } from 'src/shared/pipes/is-valid-uuid.pipe';
 import { PharmacyService } from '../services/pharmacy.service';
 import { PaginationDto } from 'src/shared/dtos/pagination.dto';
 
 @ApiBearerAuth()
 @ApiTags('Pharmacy')
-@Controller('pharmacy')
+@Controller('drug')
 export class PharmacyController {
     constructor(private readonly pharmacyService: PharmacyService) {}
 
@@ -30,8 +30,6 @@ async createDrug(
 return this.pharmacyService.createDrug(data);
 }
 
-
-
 @Get('')
 @UseGuards(AuthGuard)
 @Roles(UserRole.PHARMACIST)
@@ -46,7 +44,6 @@ public async getDrugs(@Query() pagination: PaginationDto) {
   return await this.pharmacyService.getDrugs(pagination);
 }
 
-
 @Get('search')
 @ApiOperation({ summary: 'Search a drug' })
 @ApiQuery({ name: 'query', required: false, example: 'paracetamol' })
@@ -59,6 +56,27 @@ public async searchDrugs(
   return await this.pharmacyService.searchDrugs(searchQuery, pagination);
 }
 
+@Get('/expired')
+@UseGuards(AuthGuard)
+@Roles(UserRole.PHARMACIST)
+@ApiOperation({ summary: 'Get expired drugs' })
+@ApiResponse({ 
+status: HttpStatus.OK, 
+description: 'drug retrieved successfully' })
+async getExpiredDrugs() {
+  return this.pharmacyService.getExpiredDrugs();
+}
+
+@Get('/low-stock')
+@UseGuards(AuthGuard)
+@Roles(UserRole.PHARMACIST)
+@ApiOperation({ summary: 'Get low stock drugs' })
+@ApiResponse({ 
+status: HttpStatus.OK, 
+description: 'Drug retrieved successfully' })
+async getLowStock() {
+  return this.pharmacyService.getLowStockDrugs();
+}
 
 @Get(':id')
 @UseGuards(AuthGuard)
@@ -110,23 +128,9 @@ description: 'drug not found.',
 async deleteDrug(
 @Param('id', IsValidUUIDPipe) id: string) {
 return this.pharmacyService.deleteDrug(id);
-
 }
 
-
-@Get('/expired')
-@UseGuards(AuthGuard)
-@Roles(UserRole.PHARMACIST)
-@ApiOperation({ summary: 'Get expired drugs' })
-@ApiResponse({ 
-status: HttpStatus.OK, 
-description: 'drug retrieved successfully' })
-async getExpiredDrugs() {
-  return this.pharmacyService.getExpiredDrugs();
-}
-
-
-@Patch(':id/restock')
+@Patch('restock/:id')
 @UseGuards(AuthGuard)
 @Roles(UserRole.PHARMACIST)
 @ApiOperation({ summary: 'Restock drugs' })
@@ -137,19 +141,6 @@ async restockDrug(@Param('id', IsValidUUIDPipe) id: string,
  @Body() data: RestockDrugDto) {
   return this.pharmacyService.restockDrug(id, data);
 }
-
-@Get('/low-stock')
-@UseGuards(AuthGuard)
-@Roles(UserRole.PHARMACIST)
-@ApiOperation({ summary: 'Get low stock drugs' })
-@ApiResponse({ 
-status: HttpStatus.OK, 
-description: 'Drug retrieved successfully' })
-async getLowStock() {
-  return this.pharmacyService.getLowStockDrugs();
-}
-
-
 
 
 

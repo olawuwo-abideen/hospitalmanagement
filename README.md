@@ -151,3 +151,18 @@ The following API endpoints are available:
 - **POST /patient/discharge/:patientId**: Discharge a patient.
 - **GET /patient/history/:patientId**: Get a patient history.
 - **GET /patient/status/:patientId**: Get a patient status.
+
+
+
+**Pharmacy Management Endpoints**
+
+- **POST /drug/**: Create drug.
+- **GET /drug/**: Get drugs.
+- **GET /drug/search**: Search drug by name.
+- **GET /drug/:id**: Get a drug.
+- **DELETE /drug/:id**: Delete a drug.
+- **UPDATE /drug/:id**: Update a drug.
+- **GET /drug/expired/**: Get expired drug.
+- **GET /drug/low-stock/**: Get low stock drug.
+- **GET /drug/restock/**: Get restock drug.
+

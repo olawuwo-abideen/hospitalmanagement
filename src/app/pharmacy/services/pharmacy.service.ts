@@ -3,7 +3,7 @@ import { User } from 'src/shared/entities/user.entity';
 import { CreateDrugDto, RestockDrugDto, UpdateDrugDto } from '../dto/drug.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Drug } from 'src/shared/entities/drug.entity';
-import { ILike, LessThan, Like, Raw, Repository } from 'typeorm';
+import { LessThan, Like, Raw, Repository } from 'typeorm';
 import { PaginationDto } from 'src/shared/dtos/pagination.dto';
 
 
@@ -23,6 +23,7 @@ data: CreateDrugDto
 ): Promise<{ message: string; drug: Drug }> {
 const drug = this.drugRepository.create({
 name: data.name,
+description: data.description,
 manufacturer: data.manufacturer,
 expiryDate: data.expiryDate,
 category: data.category,
@@ -65,7 +66,7 @@ drugs = await this.drugRepository.find({
 where: [
 { name: Like(`%${searchQuery}%`) },
 {
-category: Raw((alias) => `${alias} ILIKE '%${searchQuery}%'`),
+category: Raw((alias) => `${alias} LIKE '%${searchQuery}%'`),
 },
 ],
 skip: (page - 1) * pageSize,
@@ -115,7 +116,7 @@ category: data.category,
 const updatedDrug = await this.drugRepository.save(availabilitySlot);
 
 return {
-message: 'Availability slot updated successfully',
+message: 'Drug updated successfully',
 drug: updatedDrug
 };
 }
@@ -127,12 +128,12 @@ where: { id},
 });
 
 if (!availabilitySlot) {
-throw new NotFoundException('Availability slot not found');
+throw new NotFoundException('Drug not found');
 }
 
 await this.drugRepository.remove(availabilitySlot);
 
-return { message: 'Availability slot deleted successfully' };
+return { message: 'Drug deleted successfully' };
 }
 
 
@@ -163,10 +164,10 @@ newQuantity: drug.quantity,
 
 
 
-  async getLowStockDrugs() {
-    const allDrugs = await this.drugRepository.find();
-    return allDrugs.filter(drug => drug.quantity <= drug.lowStockThreshold);
-  }
+async getLowStockDrugs() {
+const allDrugs = await this.drugRepository.find();
+return allDrugs.filter(drug => drug.quantity <= drug.lowStockThreshold);
+}
 
 
 

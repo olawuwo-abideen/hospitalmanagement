@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, IsString, Min } from 'class-validator';
+import { IsDate, IsDateString, IsInt, IsNotEmpty, IsString, Min } from 'class-validator';
 import { DrugCategory } from 'src/shared/entities/drug.entity';
 
 export class CreateDrugDto {
@@ -12,6 +12,13 @@ example: 'Vitamin C',
 @IsNotEmpty()
 name: string;
 
+@ApiProperty({
+description: 'The drug description',
+example: 'A drug use to treat headache',
+})
+@IsString()
+@IsNotEmpty()
+description: string;
 
 @ApiProperty({
 description: 'The manufacture company',
@@ -26,7 +33,7 @@ manufacturer: string;
 description: 'The drug expire date',
 example: '2025-03-07T09:00:00.000Z',
 })
-@IsString()
+@IsDateString()
 @IsNotEmpty()
 expiryDate: Date;
 
@@ -43,7 +50,7 @@ category: DrugCategory;
 description: 'The drug quantity',
 example: '55',
 })
-@IsString()
+@IsInt()
 @IsNotEmpty()
 quantity: number;
 }
@@ -60,6 +67,13 @@ example: 'Vitamin C',
 @IsNotEmpty()
 name: string;
 
+@ApiProperty({
+description: 'The drug description',
+example: 'A drug use to treat headache',
+})
+@IsString()
+@IsNotEmpty()
+description: string;
 
 @ApiProperty({
 description: 'The manufacture company',
@@ -74,9 +88,10 @@ manufacturer: string;
 description: 'The drug expire date',
 example: '2025-03-07T09:00:00.000Z',
 })
-@IsString()
+@IsDateString()
 @IsNotEmpty()
 expiryDate: Date;
+
 
 @ApiProperty({
 description: 'The drug category ',
@@ -86,13 +101,6 @@ example: 'supplement',
 @IsNotEmpty()
 category: DrugCategory;
 
-@ApiProperty({
-description: 'The drug quantity',
-example: '55',
-})
-@IsString()
-@IsNotEmpty()
-quantity: number;
 }
 
 

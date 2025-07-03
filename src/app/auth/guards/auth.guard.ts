@@ -24,7 +24,6 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    console.log('🚨 AuthGuard (User) triggered');
 
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
@@ -70,7 +69,7 @@ export class AuthGuard implements CanActivate {
       context.getClass(),
     ]);
 
-    const restrictedRoles = [UserRole.DOCTOR, UserRole.NURSE, UserRole.RECEPTIONIST];
+    const restrictedRoles = [UserRole.DOCTOR, UserRole.NURSE, UserRole.RECEPTIONIST, UserRole.PHARMACIST ];
 
     if (restrictedRoles.includes(user.role) && !user.accountActivation) {
       throw new ForbiddenException(
