@@ -164,5 +164,5 @@ The following API endpoints are available:
 - **UPDATE /drug/:id**: Update a drug.
 - **GET /drug/expired/**: Get expired drug.
 - **GET /drug/low-stock/**: Get low stock drug.
-- **GET /drug/restock/**: Get restock drug.
+- **GET /drug/restock/:id**:Restock a drug.
 
