@@ -17,7 +17,7 @@ constructor(private readonly availabilityslotService: AvailabilitySlotService) {
 @Post('')
 @ApiOperation({ summary: 'Create availability slot' })
 @ApiBody({ type: SetAvailabilityDto, 
-description: 'Create availability slot data' })
+description: 'Create availability slot' })
 @ApiResponse({
 status: HttpStatus.CREATED,
 description:
@@ -99,4 +99,5 @@ async deleteAvailabilitySlot(
 return this.availabilityslotService.deleteAvailabilitySlot(user, id);
 
 }
+
 }

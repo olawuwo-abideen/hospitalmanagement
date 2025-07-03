@@ -8,12 +8,12 @@ import { UserModule } from './user/user.module';
 import { AdminModule } from './admin/admin.module';
 import { PatientModule } from './patient/patient.module';
 import { BedModule } from './bed/bed.module';
-import { AccountingModule } from './accounting/accounting.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { AvailabilitySlotModule } from './availabilityslot/availabilityslot.module';
 import { RecordModule } from './record/record.module';
 import { WardModule } from './ward/ward.module';
 import { ReviewModule } from './review/review.module';
+import { PharmacyModule } from './pharmacy/pharmacy.module';
 
 @Module({
 imports: [
@@ -35,13 +35,13 @@ UserModule,
 AdminModule,  
 PatientModule, 
 BedModule,  
-AccountingModule, 
 PatientModule, 
 AppointmentModule, 
 AvailabilitySlotModule, 
 RecordModule, 
 WardModule, 
-ReviewModule
+ReviewModule, 
+PharmacyModule
 
 ],
 controllers: [],

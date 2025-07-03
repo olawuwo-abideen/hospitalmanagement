@@ -19,7 +19,8 @@ export enum UserRole {
 PATIENT = 'patient',
 DOCTOR = 'doctor',
 NURSE = 'nurse',
-RECEPTIONIST = 'receptionist'
+RECEPTIONIST = 'receptionist',
+PHARMACIST = 'pharmacist'
 }
 
 export enum DoctorSpecilization {
