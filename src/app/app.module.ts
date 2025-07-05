@@ -14,6 +14,8 @@ import { RecordModule } from './record/record.module';
 import { WardModule } from './ward/ward.module';
 import { ReviewModule } from './review/review.module';
 import { PharmacyModule } from './pharmacy/pharmacy.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ClassSerializerInterceptor } from '@nestjs/common';
 
 @Module({
 imports: [
@@ -28,6 +30,7 @@ limit: 10,
 ]),
 TypeOrmModule.forRootAsync({
 useClass: TypeOrmConfigService,
+
 }),
 
 AuthModule,
@@ -35,7 +38,6 @@ UserModule,
 AdminModule,  
 PatientModule, 
 BedModule,  
-PatientModule, 
 AppointmentModule, 
 AvailabilitySlotModule, 
 RecordModule, 
@@ -45,6 +47,11 @@ PharmacyModule
 
 ],
 controllers: [],
-providers: [],
+providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor,
+    }
+],
 })
 export class AppModule {}

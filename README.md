@@ -98,6 +98,9 @@ The following API endpoints are available:
 - **PUT /user/**: Update the patient profile.
 - **PUT /user/staff**: Update staff profile.
 - **PUT /user/user-image**: Update user image.
+- **POST /user/initiate-2fa**: Initiate 2fa authentication.
+- **POST /user/verify-2fa**: Verify 2fa  authentication.
+- **POST /user/disable-2fa**: Disable 2fa  authentication.
 
 **Availability Slot Endpoint**
 

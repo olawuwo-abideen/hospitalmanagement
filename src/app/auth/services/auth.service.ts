@@ -16,6 +16,7 @@ import { EmailService } from '../../../shared/modules/email/email.service';
 import { ResetPasswordDto } from '../dto/reset-password.dto';
 import { ConfigService } from '@nestjs/config';
 import * as bcryptjs from "bcryptjs"
+import * as speakeasy from 'speakeasy';
 
 @Injectable()
 export class AuthService {
@@ -71,18 +72,39 @@ public async signup(data: SignupDto) {
   };
 }
 
+public async login({ email, password, twoFAToken }: LoginDto) {
+  const user: User | null = await this.userService.findOne({ email });
 
-public async login({ email, password }: LoginDto) {
-const user: User | null = await this.userService.findOne({ email });
-if (!user || !(await bcryptjs.compare(password, user.password))) {
-throw new UnauthorizedException('Email or password is incorrect');
+  if (!user || !(await bcryptjs.compare(password, user.password))) {
+    throw new UnauthorizedException('Email or password is incorrect');
+  }
+  if (user.enable2FA) {
+    if (!twoFAToken) {
+      return {
+        message: '2FA token required',
+        requires2FA: true
+      };
+    }
+
+    const isTokenValid = speakeasy.totp.verify({
+      secret: user.twoFASecret,
+      token: twoFAToken,
+      encoding: 'base32',
+      window: 1, 
+    });
+
+    if (!isTokenValid) {
+      throw new UnauthorizedException('Invalid 2FA token');
+    }
+  }
+  return {
+    message: 'User logged in successfully',
+    token: this.createAccessToken(user),
+    user,
+  };
 }
-return {
-message: "User login sucessfully",
-token: this.createAccessToken(user),
-user,
-};
-}
+
+
 public createAccessToken(user: User): string {
 return this.jwtService.sign({ sub: user.id });
 }
@@ -110,7 +132,6 @@ id: user.id,
 resetToken: token,
 },
 );
-
 await this.emailService.sendResetPasswordLink(user);
 return { message: 'Reset token sent to user email' };
 }
@@ -151,9 +172,6 @@ await this.userRepository.update(
 );
 return { message: 'Password reset successfully' };
 }
-
-
-
 
 
 }

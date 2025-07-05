@@ -9,7 +9,7 @@ MaxLength,
 MinLength,
 } from 'class-validator';
 
-export class LoginDto {
+export class AdminLoginDto {
 @ApiProperty({
 required: true,
 description: 'Email address of the user',
@@ -38,14 +38,4 @@ message:
 password: string;
 
 
-
-
-
-@ApiProperty({
-required: true,
-description: 'two FA Token',
-example: '972238',
-})
-@IsOptional()
-twoFAToken: string
 }

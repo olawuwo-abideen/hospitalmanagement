@@ -12,7 +12,7 @@ export class Admission {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => User, (user) => user.admissions)
+  @ManyToOne(() => User, (user) => user.admissions,  { onDelete: 'CASCADE' })
   patient: User;
 
   @Column({ default: true })

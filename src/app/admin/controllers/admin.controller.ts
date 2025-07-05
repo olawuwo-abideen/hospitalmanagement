@@ -1,12 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { AdminService } from '../services/admin.service';
-import { LoginDto } from '../../auth/dto/login.dto';
+import { AdminLoginDto } from '../dto/admin-login.dto';
 import { Public } from '../../../shared/decorators/public.decorator';
 import { CreateBedDto, UpdateBedDto } from 'src/app/bed/dto/bed.dto';
-import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { IsValidUUIDPipe } from 'src/shared/pipes/is-valid-uuid.pipe';
 import { CreateWardDto, UpdateWardDto } from 'src/app/ward/dto/ward.dto';
 import { AdminAuthGuard } from '../guards/adminguard';
+import { PaginationDto } from 'src/shared/dtos/pagination.dto';
 
 
 @Controller('admin')
@@ -16,8 +17,18 @@ constructor(private readonly adminService: AdminService) {}
 
 @Public()
 @Post('login')
-async login(@Body() user: LoginDto) {
+@ApiOperation({ summary: 'Admin login' })
+async login(@Body() user: AdminLoginDto) {
 return this.adminService.login(user);
+}
+
+@ApiBearerAuth()
+@Get('')
+@ApiOperation({ summary: 'Get users' })
+@ApiQuery({ name: 'page', required: false, example: 1 })
+@ApiQuery({ name: 'pageSize', required: false, example: 10 })
+public async getAllUsers(@Query() pagination: PaginationDto) {
+  return await this.adminService.getAllUsers(pagination);
 }
 
 @ApiBearerAuth()

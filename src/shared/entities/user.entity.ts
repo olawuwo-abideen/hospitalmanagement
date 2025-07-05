@@ -76,26 +76,6 @@ gender: Gender;
 @Column({ default:false })
 accountActivation: boolean;
 
-
-@OneToMany(() => Review, (review) => review.user)
-reviews?: Review[];
-
-@OneToMany(() => Prescription, (prescription) => prescription.user)
-prescriptions?: Prescription[];
-
-@OneToMany(() => MedicalRecord, (medicalrecord) => medicalrecord.user)
-medicalrecords?: MedicalRecord[];
-
-@OneToMany(() => Appointment, (appointment) => appointment.user)
-appointments?: Appointment[];
-
-@OneToMany(() => AvailabilitySlot, (slot) => slot.user)
-availabilitySlots: AvailabilitySlot[];
-
-@OneToMany(() => Admission, (admission) => admission.patient)
-admissions: Admission[];
-
-
 @Column()
 @Exclude()
 password: string;
@@ -114,6 +94,38 @@ specialization?: string;
 @Column({ name: 'experienceyears',  nullable: true })
 experienceyears?: number;
 
+@Column({ nullable: true, type: 'text' })
+@Exclude()
+twoFASecret: string;
+
+@Column({ default: false, type: 'boolean' })
+enable2FA: boolean;
+
+@Column({ nullable: true })
+@Exclude()
+tempTwoFASecret?: string;
+
+@Column({ nullable: true, type: 'timestamp' })
+@Exclude()
+tempTwoFAExpiresAt?: Date;
+
+@OneToMany(() => Review, (review) => review.user)
+reviews?: Review[];
+
+@OneToMany(() => Prescription, (prescription) => prescription.user)
+prescriptions?: Prescription[];
+
+@OneToMany(() => MedicalRecord, (medicalrecord) => medicalrecord.user)
+medicalrecords?: MedicalRecord[];
+
+@OneToMany(() => Appointment, (appointment) => appointment.user)
+appointments?: Appointment[];
+
+@OneToMany(() => AvailabilitySlot, (slot) => slot.user)
+availabilitySlots: AvailabilitySlot[];
+
+@OneToMany(() => Admission, (admission) => admission.patient)
+admissions: Admission[];
 
 
 @CreateDateColumn({

@@ -7,7 +7,7 @@ UnauthorizedException,
 import { InjectRepository } from '@nestjs/typeorm';
 import { Admin } from '../../../shared/entities/admin.entity';
 import { FindOptionsWhere, Repository } from 'typeorm';
-import { LoginDto } from '../../auth/dto/login.dto';
+import { AdminLoginDto } from '../dto/admin-login.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcryptjs';
@@ -16,6 +16,7 @@ import { CreateBedDto, UpdateBedDto } from 'src/app/bed/dto/bed.dto';
 import { Ward } from 'src/shared/entities/ward.entity';
 import { CreateWardDto, UpdateWardDto } from 'src/app/ward/dto/ward.dto';
 import { User } from 'src/shared/entities/user.entity';
+import { PaginationDto } from 'src/shared/dtos/pagination.dto';
 
 @Injectable()
 export class AdminService implements OnModuleInit {
@@ -54,7 +55,7 @@ public async findOne(where: FindOptionsWhere<Admin>): Promise<Admin | null> {
 return await this.adminRepository.findOne({ where });
 }
 
-public async login({ email, password }: LoginDto) {
+public async login({ email, password }: AdminLoginDto) {
 const admin = await this.adminRepository.findOne({ where: { email } });
 if (!admin || !(await bcrypt.compare(password, admin.password))) {
 throw new UnauthorizedException('Email or password is incorrect');
@@ -67,6 +68,29 @@ admin,
 
 public createAccessToken(admin: Admin): string {
 return this.jwtService.sign({ sub: admin.id, role: 'admin' });
+}
+
+
+public async getAllUsers(pagination: PaginationDto): Promise<{ message: string; data: User[] }> {
+  const { page = 1, pageSize = 10 } = pagination;
+
+  const [data] = await this.userRepository.findAndCount({
+    skip: (page - 1) * pageSize,
+    take: pageSize,
+  });
+
+  return { message: 'Users retrieved successfully', data };
+}
+
+
+public async getBed(id: string): Promise<{ message: string; bed: Bed }> {
+const bed = await this.bedRepository.findOne({ where: { id } });
+
+if (!bed) {
+throw new NotFoundException(`Bed with ${id} not found`);
+}
+
+return { message: 'Bed retrieved successfully', bed };
 }
 
 
@@ -115,23 +139,6 @@ public async activateStaffAccount(id: string): Promise<{ message: string }> {
   await this.userRepository.save(user);
   return { message: `Staff account activated successfully for user with ID ${id}.` };
 }
-
-
-
-// public async activateStaffAccount(
-// id: string,
-// ): Promise<{ message: string }> {
-// const user = await this.userRepository.findOne({ where: { id: id } });
-// if (!user) {
-// throw new NotFoundException(`User with ID ${id} not found.`);
-// }
-// if (user.accountActivation === true) {
-// return { message: `Account is already activated for user with ID ${id}.` };
-// }
-// user.accountActivation = true;
-// await this.userRepository.save(user);
-// return { message: `Staff account activated successfully for user with ID ${id}.` };
-// }
 
 
 

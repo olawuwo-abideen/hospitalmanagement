@@ -20,7 +20,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../../../app/auth/guards/auth.guard';
 import { Roles } from '../../../shared/decorators/roles.decorator';
-
+import {Validate2faTokenDTO} from "../dto/validate-2fa-token.dto"
 
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
@@ -106,6 +106,40 @@ public async updateUserImage(
 ) {
 return await this.userService.updateUserImage(userimage, user);
 }
+
+
+
+@Post('initiate-2fa')
+@ApiOperation({ summary: 'Initiate Multi Factor Authentication' })
+async initiate2FASetup(
+  @CurrentUser() user: User
+): Promise<{ message: string, secret: string }> {
+  return this.userService.initiate2FASetup(user);
+}
+
+
+@Post('verify-2fa')
+@ApiOperation({ summary: 'Validate Multi Factor Authentication' })
+async verify2FA(
+@CurrentUser() user: User,
+@Body()
+ValidateTokenDTO: Validate2faTokenDTO,
+): Promise<{ verified: boolean; message: string }> {
+return this.userService.verify2FASetup(
+user,
+ValidateTokenDTO.token,
+);
+}
+
+
+@Post('disable-2fa')
+@ApiOperation({ summary: 'Disable 2 Factor Authentication' })
+async disable2FA(
+@CurrentUser() user: User,
+): Promise<{  message: string }> {
+return this.userService.disable2FA(user);
+}
+
 
 
 
