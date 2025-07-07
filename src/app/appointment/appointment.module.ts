@@ -8,13 +8,15 @@ import { AvailabilitySlot } from '../../shared/entities/availabilityslot.entity'
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
 imports: [
 TypeOrmModule.forFeature([Appointment, User, AvailabilitySlot]),
 JwtModule.register({}),
 UserModule,
-AuthModule
+AuthModule,
+PassportModule
 ],
 controllers: [AppointmentController],
 providers: [AppointmentService],

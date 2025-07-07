@@ -27,8 +27,23 @@ return this.adminService.login(user);
 @ApiOperation({ summary: 'Get users' })
 @ApiQuery({ name: 'page', required: false, example: 1 })
 @ApiQuery({ name: 'pageSize', required: false, example: 10 })
+public async getAllStaffs(@Query() pagination: PaginationDto) {
+return await this.adminService.getAllStaffs(pagination);
+}
+
+@Get('staff/count')
+@ApiOperation({ summary: 'Get total number of staff' })
+async getTotalStaffCount() {
+return this.adminService.countAllStaffs();
+}
+
+@ApiBearerAuth()
+@Get('')
+@ApiOperation({ summary: 'Get users' })
+@ApiQuery({ name: 'page', required: false, example: 1 })
+@ApiQuery({ name: 'pageSize', required: false, example: 10 })
 public async getAllUsers(@Query() pagination: PaginationDto) {
-  return await this.adminService.getAllUsers(pagination);
+return await this.adminService.getAllUsers(pagination);
 }
 
 @ApiBearerAuth()
@@ -66,6 +81,30 @@ async activateStaffAccount(
 ) {
 return this.adminService.activateStaffAccount(id);
 }
+
+//reports
+
+@Get('admissions')
+  getAdmissions(@Query('month') month?: number, @Query('year') year: number = new Date().getFullYear()) {
+    return month
+      ? this.adminService.getMonthlyAdmissions(month, year)
+      : this.adminService.getYearlyAdmissions(year);
+  }
+
+  @Get('discharges')
+  getDischarges() {
+    return this.adminService.getDischargeSummary();
+  }
+
+  @Get('appointments')
+  getAppointmentsStats() {
+    return this.adminService.getAppointmentsPerDoctor();
+  }
+
+  @Get('inventory')
+  getInventoryReport() {
+    return this.adminService.getInventoryReport();
+  }
 
 //bed
 

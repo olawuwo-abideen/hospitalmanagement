@@ -45,7 +45,7 @@ return user;
 }
 
 public async profile(user: User) {
-  return user; 
+return user; 
 }
 
 
@@ -155,105 +155,55 @@ return user;
 }
 
 
-  async initiate2FASetup(user: User): Promise<{ message: string; secret: string }> {
-    const secret = speakeasy.generateSecret();
+async initiate2FASetup(user: User): Promise<{ message: string; secret: string }> {
+const secret = speakeasy.generateSecret();
 
-    await this.userRepository.update(user.id, {
-      tempTwoFASecret: secret.base32,
-      tempTwoFAExpiresAt: new Date(Date.now() + 3 * 60 * 1000), // 3 minutes from now
-    });
+await this.userRepository.update(user.id, {
+tempTwoFASecret: secret.base32,
+tempTwoFAExpiresAt: new Date(Date.now() + 3 * 60 * 1000), // 3 minutes from now
+});
 
-    return {
-      message: 'Secret generated, kindly verify within 3 minutes to complete 2FA setup',
-      secret: secret.base32,
-    };
-  }
+return {
+message: 'Secret generated, kindly verify within 3 minutes to complete 2FA setup',
+secret: secret.base32,
+};
+}
 
-  async verify2FASetup(user: User, token: string): Promise<{ verified: boolean; message: string }> {
-    const now = new Date();
+async verify2FASetup(user: User, token: string): Promise<{ verified: boolean; message: string }> {
+const now = new Date();
 
-    if (!user.tempTwoFASecret || !user.tempTwoFAExpiresAt) {
-      throw new BadRequestException('2FA setup not initiated');
-    }
+if (!user.tempTwoFASecret || !user.tempTwoFAExpiresAt) {
+throw new BadRequestException('2FA setup not initiated');
+}
 
-    if (user.tempTwoFAExpiresAt < now) {
-      await this.userRepository.update(user.id, {
-        tempTwoFASecret: null,
-        tempTwoFAExpiresAt: null,
-      });
-      throw new BadRequestException('2FA setup has expired. Please try again.');
-    }
+if (user.tempTwoFAExpiresAt < now) {
+await this.userRepository.update(user.id, {
+tempTwoFASecret: null,
+tempTwoFAExpiresAt: null,
+});
+throw new BadRequestException('2FA setup has expired. Please try again.');
+}
 
-    const verified = speakeasy.totp.verify({
-      secret: user.tempTwoFASecret,
-      token,
-      encoding: 'base32',
-      window: 1,
-    });
+const verified = speakeasy.totp.verify({
+secret: user.tempTwoFASecret,
+token,
+encoding: 'base32',
+window: 1,
+});
 
-    if (!verified) {
-      return { verified: false, message: 'Invalid verification code' };
-    }
+if (!verified) {
+return { verified: false, message: 'Invalid verification code' };
+}
 
-    await this.userRepository.update(user.id, {
-      twoFASecret: user.tempTwoFASecret,
-      enable2FA: true,
-      tempTwoFASecret: null,
-      tempTwoFAExpiresAt: null,
-    });
+await this.userRepository.update(user.id, {
+twoFASecret: user.tempTwoFASecret,
+enable2FA: true,
+tempTwoFASecret: null,
+tempTwoFAExpiresAt: null,
+});
 
-    return { verified: true, message: '2FA has been successfully enabled' };
-  }
-
-
-// async initiate2FASetup(user: User): Promise<{ message: string; secret: string }> {
-// const secret = speakeasy.generateSecret();
-
-// user.tempTwoFASecret = secret.base32;
-// user.tempTwoFAExpiresAt = new Date(Date.now() + 3 * 60 * 1000); 
-// await this.userRepository.save(user);
-
-// return {
-// message: 'Secret generated, kindly verify within 3 minutes to complete 2FA setup',
-// secret: secret.base32,
-// };
-// }
-
-
-// async verify2FASetup(user: User, token: string): Promise<{ verified: boolean; message: string }> {
-// const now = new Date();
-
-// if (!user.tempTwoFASecret || !user.tempTwoFAExpiresAt) {
-// throw new BadRequestException('2FA setup not initiated');
-// }
-
-// if (user.tempTwoFAExpiresAt < now) {
-// user.tempTwoFASecret = null;
-// user.tempTwoFAExpiresAt = null;
-// await this.userRepository.save(user);
-// throw new BadRequestException('2FA setup has expired. Please try again.');
-// }
-
-// const verified = speakeasy.totp.verify({
-// secret: user.tempTwoFASecret,
-// token,
-// encoding: 'base32',
-//  window: 1, 
-// });
-
-// if (!verified) {
-// return { verified: false, message: 'Invalid verification code' };
-// }
-
-// user.twoFASecret = user.tempTwoFASecret;
-// user.tempTwoFASecret = null;
-// user.tempTwoFAExpiresAt = null;
-// user.enable2FA = true;
-// await this.userRepository.save(user);
-
-// return { verified: true, message: '2FA has been successfully enabled' };
-// }
-
+return { verified: true, message: '2FA has been successfully enabled' };
+}
 
 
 

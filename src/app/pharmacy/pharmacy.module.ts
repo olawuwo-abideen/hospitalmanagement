@@ -7,13 +7,15 @@ import { User } from 'src/shared/entities/user.entity';
 import { AuthModule } from '../auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from '../user/user.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
 imports: [
 TypeOrmModule.forFeature([ Drug, User]),
 JwtModule.register({}),
 UserModule,
-AuthModule
+AuthModule,
+PassportModule
 ],
 controllers: [PharmacyController],
 providers: [PharmacyService]

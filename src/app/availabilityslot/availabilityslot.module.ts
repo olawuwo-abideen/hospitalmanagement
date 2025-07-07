@@ -7,10 +7,12 @@
   import { JwtModule } from '@nestjs/jwt';
   import { UserModule } from '../user/user.module';
   import { AuthModule } from '../auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
 
   @Module({
   imports: [
   TypeOrmModule.forFeature([User, AvailabilitySlot]),
+  PassportModule,
   JwtModule.register({}),
   UserModule,
   AuthModule

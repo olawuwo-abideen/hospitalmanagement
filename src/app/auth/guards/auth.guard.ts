@@ -69,7 +69,7 @@ export class AuthGuard implements CanActivate {
       context.getClass(),
     ]);
 
-    const restrictedRoles = [UserRole.DOCTOR, UserRole.NURSE, UserRole.RECEPTIONIST, UserRole.PHARMACIST ];
+    const restrictedRoles = [UserRole.DOCTOR, UserRole.NURSE, UserRole.RECEPTIONIST, UserRole.PHARMACIST, UserRole.LABTECHNICIAN ];
 
     if (restrictedRoles.includes(user.role) && !user.accountActivation) {
       throw new ForbiddenException(

@@ -1,21 +1,23 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './services/auth.service';
-import { UserService } from '../user/services/user.service'; 
+import { UserService } from '../user/services/user.service';
 import { UserModule } from '../user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './guards/auth.guard';
+import { ConfigService, ConfigModule } from '@nestjs/config';
 import { User } from '../../shared/entities/user.entity';
 import { CloudinaryModule } from '../../shared/cloudinary/cloudinary.module';
 import { EmailModule } from '../../shared/modules/email/email.module';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './strategy/jwt.strategy';
 
 @Module({
 imports: [
-// forwardRef(() => UserModule), 
+ConfigModule,
+PassportModule.register({ defaultStrategy: 'jwt' }),
 JwtModule.registerAsync({
+imports: [ConfigModule],
 inject: [ConfigService],
 useFactory: async (configService: ConfigService) => ({
 secret: configService.get<string>('JWT_SECRET'),
@@ -31,11 +33,14 @@ EmailModule,
 controllers: [AuthController],
 providers: [
 AuthService,
-UserService,AuthGuard
-// {
-// provide: APP_GUARD,
-// useClass: AuthGuard,
-// },
+UserService,
+JwtStrategy,
+],
+exports: [
+AuthService,
+JwtStrategy,
+PassportModule,
+JwtModule,
 ],
 })
 export class AuthModule {}

@@ -7,13 +7,15 @@ import { User } from 'src/shared/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
 TypeOrmModule.forFeature([User, Review]),
 JwtModule.register({}),
 UserModule,
-AuthModule
+AuthModule,
+PassportModule
 ],
   controllers: [ReviewController],
   providers: [ReviewService]

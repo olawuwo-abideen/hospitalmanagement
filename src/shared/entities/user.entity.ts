@@ -14,13 +14,15 @@ import { MedicalRecord } from './medical-record.entity';
 import { Appointment } from './appointment.entity';
 import { AvailabilitySlot } from './availabilityslot.entity';
 import { Admission } from './admission.dto';
+import { LabTest } from './laboratory.entity';
 
 export enum UserRole {
 PATIENT = 'patient',
 DOCTOR = 'doctor',
 NURSE = 'nurse',
 RECEPTIONIST = 'receptionist',
-PHARMACIST = 'pharmacist'
+PHARMACIST = 'pharmacist',
+LABTECHNICIAN = 'lab technician'
 }
 
 export enum DoctorSpecilization {
@@ -126,6 +128,9 @@ availabilitySlots: AvailabilitySlot[];
 
 @OneToMany(() => Admission, (admission) => admission.patient)
 admissions: Admission[];
+
+@OneToMany(() => LabTest, (labTest) => labTest.patient)
+labTests: LabTest[];
 
 
 @CreateDateColumn({

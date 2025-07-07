@@ -16,6 +16,8 @@ import { ReviewModule } from './review/review.module';
 import { PharmacyModule } from './pharmacy/pharmacy.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ClassSerializerInterceptor } from '@nestjs/common';
+import { LaboratoryModule } from './laboratory/laboratory.module';
+import { InventoryModule } from './inventory/inventory.module';
 
 @Module({
 imports: [
@@ -43,7 +45,9 @@ AvailabilitySlotModule,
 RecordModule, 
 WardModule, 
 ReviewModule, 
-PharmacyModule
+PharmacyModule, 
+LaboratoryModule, 
+InventoryModule
 
 ],
 controllers: [],

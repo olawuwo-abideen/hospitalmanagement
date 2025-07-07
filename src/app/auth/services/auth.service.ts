@@ -20,7 +20,6 @@ import * as speakeasy from 'speakeasy';
 
 @Injectable()
 export class AuthService {
-logger: any;
 constructor(
 private readonly userService: UserService,
 private readonly jwtService: JwtService,

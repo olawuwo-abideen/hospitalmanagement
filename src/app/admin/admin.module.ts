@@ -13,10 +13,13 @@ import { WardModule } from '../ward/ward.module';
 import { BedModule } from '../bed/bed.module';
 import { AdminAuthGuard } from './guards/adminguard';
 import { APP_GUARD } from '@nestjs/core';
+import { Inventory } from 'src/shared/entities/inventory.entity';
+import { Admission } from 'src/shared/entities/admission.dto';
+import { Appointment } from 'src/shared/entities/appointment.entity';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
 imports: [
-// forwardRef(() => UserModule), 
 JwtModule.registerAsync({
 inject: [ConfigService],
 useFactory: async (configService: ConfigService) => ({
@@ -26,7 +29,8 @@ expiresIn: `${configService.get<string>('JWT_EXPIRES_IN')}`,
 },
 }),
 }),
-TypeOrmModule.forFeature([Admin, Bed, User, Ward]),
+TypeOrmModule.forFeature([Admin, Bed, User, Ward, Inventory, Admission, Appointment]),
+PassportModule,
 UserModule,
 ConfigModule,
 WardModule,
@@ -37,10 +41,6 @@ controllers: [AdminController],
 providers: [
 AdminService,
 AdminAuthGuard
-// {
-// provide: APP_GUARD,
-// useClass: AdminAuthGuard
-// },
 ]
 })
 export class AdminModule {}

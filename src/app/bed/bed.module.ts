@@ -8,10 +8,12 @@ import { AuthModule } from '../auth/auth.module';
 import { Bed } from 'src/shared/entities/bed.entity';
 import { User } from 'src/shared/entities/user.entity';
 import { Ward } from 'src/shared/entities/ward.entity';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
 imports: [
 TypeOrmModule.forFeature([Bed, User, Ward]),
+PassportModule,
 JwtModule.register({}),
 UserModule,
 AuthModule

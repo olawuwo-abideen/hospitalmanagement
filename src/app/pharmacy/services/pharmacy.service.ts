@@ -98,22 +98,22 @@ async updateDrug(
 id: string,
 data: UpdateDrugDto
 ): Promise<{ message: string; drug: Drug }> {
-const availabilitySlot = await this.drugRepository.findOne({
+const drug = await this.drugRepository.findOne({
 where: { id }, 
 });
 
-if (!availabilitySlot) {
+if (!drug) {
 throw new NotFoundException('Drug slot not found ');
 }
 
-Object.assign(availabilitySlot, {
+Object.assign(drug, {
 name: data.name,
 manufacturer: data.manufacturer,
 expiryDate: data.expiryDate,
 category: data.category,
 });
 
-const updatedDrug = await this.drugRepository.save(availabilitySlot);
+const updatedDrug = await this.drugRepository.save(drug);
 
 return {
 message: 'Drug updated successfully',
@@ -123,15 +123,15 @@ drug: updatedDrug
 
 
 async deleteDrug(id: string): Promise<{ message: string }> {
-const availabilitySlot = await this.drugRepository.findOne({
+const drug = await this.drugRepository.findOne({
 where: { id}, 
 });
 
-if (!availabilitySlot) {
+if (!drug) {
 throw new NotFoundException('Drug not found');
 }
 
-await this.drugRepository.remove(availabilitySlot);
+await this.drugRepository.remove(drug);
 
 return { message: 'Drug deleted successfully' };
 }

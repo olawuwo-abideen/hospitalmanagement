@@ -7,13 +7,15 @@ import { UserModule } from '../user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from '../auth/auth.module';
 import { Admission } from 'src/shared/entities/admission.dto';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
   TypeOrmModule.forFeature([ User, Admission]),
   JwtModule.register({}),
   UserModule,
-  AuthModule
+  AuthModule,
+  PassportModule
   ],
   controllers: [PatientController],
   providers: [PatientService]

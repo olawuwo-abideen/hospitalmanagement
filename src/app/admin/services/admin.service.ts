@@ -6,7 +6,7 @@ UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Admin } from '../../../shared/entities/admin.entity';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { Between, FindOptionsWhere, In, Not, Repository } from 'typeorm';
 import { AdminLoginDto } from '../dto/admin-login.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
@@ -15,8 +15,11 @@ import { Bed } from 'src/shared/entities/bed.entity';
 import { CreateBedDto, UpdateBedDto } from 'src/app/bed/dto/bed.dto';
 import { Ward } from 'src/shared/entities/ward.entity';
 import { CreateWardDto, UpdateWardDto } from 'src/app/ward/dto/ward.dto';
-import { User } from 'src/shared/entities/user.entity';
+import { User, UserRole } from 'src/shared/entities/user.entity';
 import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { Admission } from 'src/shared/entities/admission.dto';
+import { Inventory } from 'src/shared/entities/inventory.entity';
+import { Appointment } from 'src/shared/entities/appointment.entity';
 
 @Injectable()
 export class AdminService implements OnModuleInit {
@@ -31,6 +34,12 @@ private bedRepository: Repository<Bed>,
 private wardRepository: Repository<Ward>,
 @InjectRepository(User) 
 private readonly userRepository: Repository<User>,
+@InjectRepository(Admission) 
+private readonly admissionRepository: Repository<Admission>,
+@InjectRepository(Inventory) 
+private readonly inventoryRepository: Repository<Inventory>,
+@InjectRepository(Appointment) 
+private readonly appointmentRepository: Repository<Appointment>,
 
 ) {}
 
@@ -70,6 +79,97 @@ public createAccessToken(admin: Admin): string {
 return this.jwtService.sign({ sub: admin.id, role: 'admin' });
 }
 
+
+ async getMonthlyAdmissions(month: number, year: number) {
+    const from = new Date(year, month - 1, 1);
+    const to = new Date(year, month, 0, 23, 59, 59);
+
+    const data = await this.admissionRepository.find({ where: { createdAt: Between(from, to) } });
+    return { message: 'Monthly admissions fetched', count: data.length, data };
+  }
+
+  async getYearlyAdmissions(year: number) {
+    const from = new Date(year, 0, 1);
+    const to = new Date(year, 11, 31, 23, 59, 59);
+
+    const data = await this.admissionRepository.find({ where: { createdAt: Between(from, to) } });
+    return { message: 'Yearly admissions fetched', count: data.length, data };
+  }
+
+async getDischargeSummary() {
+  const discharges = await this.admissionRepository.find({
+    where: { dischargedAt: Not(null) },
+  });
+
+  return {
+    message: 'Discharge summary fetched',
+    count: discharges.length,
+    discharges,
+  };
+}
+
+
+  async getAppointmentsPerDoctor() {
+    const stats = await this.appointmentRepository
+      .createQueryBuilder('appointment')
+      .select('appointment.doctorId', 'doctorId')
+      .addSelect('COUNT(*)', 'total')
+      .groupBy('appointment.doctorId')
+      .getRawMany();
+
+    return { message: 'Appointments per doctor', stats };
+  }
+
+  async getInventoryReport() {
+    const inventory = await this.inventoryRepository.find();
+    return { message: 'Inventory stock report', inventory };
+  }
+
+public async getAllStaffs(pagination: PaginationDto): Promise<{ message: string; data: User[] }> {
+  const { page = 1, pageSize = 10 } = pagination;
+
+  const staffRoles = [
+    UserRole.DOCTOR,
+    UserRole.NURSE,
+    UserRole.RECEPTIONIST,
+    UserRole.PHARMACIST,
+    UserRole.LABTECHNICIAN
+  ];
+
+  const [data] = await this.userRepository.findAndCount({
+    where: {
+      role: In(staffRoles),
+    },
+    skip: (page - 1) * pageSize,
+    take: pageSize,
+  });
+
+  return {
+    message: 'Staff users retrieved successfully',
+    data,
+  };
+}
+
+public async countAllStaffs(): Promise<{ message: string; total: number }> {
+  const staffRoles = [
+    UserRole.DOCTOR,
+    UserRole.NURSE,
+    UserRole.RECEPTIONIST,
+    UserRole.PHARMACIST,
+    UserRole.LABTECHNICIAN
+  ];
+
+  const total = await this.userRepository.count({
+    where: {
+      role: In(staffRoles),
+    },
+  });
+
+  return {
+    message: 'Total number of staff users retrieved successfully',
+    total,
+  };
+}
 
 public async getAllUsers(pagination: PaginationDto): Promise<{ message: string; data: User[] }> {
   const { page = 1, pageSize = 10 } = pagination;

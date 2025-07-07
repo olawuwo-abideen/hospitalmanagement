@@ -10,6 +10,7 @@ import { Review } from 'src/shared/entities/review.entity';
 import { Prescription } from 'src/shared/entities/prescription.entity';
 import { MedicalRecord } from 'src/shared/entities/medical-record.entity';
 import { Appointment } from 'src/shared/entities/appointment.entity';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ TypeOrmModule.forFeature([User, Review, Prescription, MedicalRecord, Appointment
 CloudinaryModule,
 forwardRef(() => AuthModule),
 JwtModule,
+PassportModule
 ],
   controllers: [UserController],
   providers: [UserService],
