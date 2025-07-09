@@ -23,14 +23,15 @@ return this.adminService.login(user);
 }
 
 @ApiBearerAuth()
-@Get('')
-@ApiOperation({ summary: 'Get users' })
+@Get('staff')
+@ApiOperation({ summary: 'Get all staff users' })
 @ApiQuery({ name: 'page', required: false, example: 1 })
 @ApiQuery({ name: 'pageSize', required: false, example: 10 })
 public async getAllStaffs(@Query() pagination: PaginationDto) {
 return await this.adminService.getAllStaffs(pagination);
 }
 
+@ApiBearerAuth()
 @Get('staff/count')
 @ApiOperation({ summary: 'Get total number of staff' })
 async getTotalStaffCount() {
@@ -38,8 +39,8 @@ return this.adminService.countAllStaffs();
 }
 
 @ApiBearerAuth()
-@Get('')
-@ApiOperation({ summary: 'Get users' })
+@Get('users')
+@ApiOperation({ summary: 'Get all users' })
 @ApiQuery({ name: 'page', required: false, example: 1 })
 @ApiQuery({ name: 'pageSize', required: false, example: 10 })
 public async getAllUsers(@Query() pagination: PaginationDto) {
@@ -82,29 +83,46 @@ async activateStaffAccount(
 return this.adminService.activateStaffAccount(id);
 }
 
+//billing reveneue
+
+@ApiBearerAuth()
+@ApiOperation({ summary: 'Get billing Reveneue' })
+@Get('revenue')
+getRevenueStats() {
+return this.adminService.getRevenueStats();
+}
+
 //reports
 
+@ApiBearerAuth()
 @Get('admissions')
-  getAdmissions(@Query('month') month?: number, @Query('year') year: number = new Date().getFullYear()) {
-    return month
-      ? this.adminService.getMonthlyAdmissions(month, year)
-      : this.adminService.getYearlyAdmissions(year);
-  }
+@ApiOperation({ summary: 'Get patient admission overview' })
+getAdmissions(@Query('month') month?: number, @Query('year') year: number = new Date().getFullYear()) {
+return month
+? this.adminService.getMonthlyAdmissions(month, year)
+: this.adminService.getYearlyAdmissions(year);
+}
 
-  @Get('discharges')
-  getDischarges() {
-    return this.adminService.getDischargeSummary();
-  }
+@ApiBearerAuth()
+@Get('discharges')
+@ApiOperation({ summary: 'Get Patient discharge summary' })
+getDischarges() {
+return this.adminService.getDischargeSummary();
+}
 
-  @Get('appointments')
-  getAppointmentsStats() {
-    return this.adminService.getAppointmentsPerDoctor();
-  }
+@ApiBearerAuth()
+@Get('appointments')
+@ApiOperation({ summary: 'Get appointment per doctor' })
+getAppointmentsStats() {
+return this.adminService.getAppointmentsPerDoctor();
+}
 
-  @Get('inventory')
-  getInventoryReport() {
-    return this.adminService.getInventoryReport();
-  }
+@ApiBearerAuth()
+@Get('inventory')
+@ApiOperation({ summary: 'Get inventory report' })
+getInventoryReport() {
+return this.adminService.getInventoryReport();
+}
 
 //bed
 

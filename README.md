@@ -71,9 +71,18 @@ The following API endpoints are available:
 **Admin Endpoint**
 
 - **POST /admin/login**: Admin login.
+- **GET /admin/staff**: Get staff user.
+- **GET /admin/staff/count**: Get total number of staff.
+- **GET /admin/users**: Get all users.
+- **GET /admin/user/:id**: Get a user.
 - **GET /admin/delete/:id**: Delete a user.
 - **GET /admin/staff/status/:id**: Get staff account status.
-- **PATCH /admin/staff/activate/:id**: Update staff account status.
+- **PATCH /admin/staff/activate/:id**: Activate staff account.
+- **GET /admin/revenue**: Get billing revenue.
+- **GET /admin/admissions**: Get patient admission overview.
+- **GET /admin/discharges**: Get discharge overview.
+- **GET /admin/appointments**: Get appointments overview.
+- **GET /admin/inventory**: Get inventory report.
 - **POST /admin/bed**: Create bed.
 - **PUT /admin/bed/:id**: Update bed.
 - **DELETE /admin/bed/:id**: Delete bed.
@@ -168,4 +177,46 @@ The following API endpoints are available:
 - **GET /drug/expired/**: Get expired drug.
 - **GET /drug/low-stock/**: Get low stock drug.
 - **GET /drug/restock/:id**:Restock a drug.
+
+
+**Pharmacy Management Endpoints**
+
+- **POST /drug/**: Create drug.
+- **GET /drug/**: Get drugs.
+- **GET /drug/search**: Search drug by name.
+- **GET /drug/:id**: Get a drug.
+- **DELETE /drug/:id**: Delete a drug.
+- **UPDATE /drug/:id**: Update a drug.
+- **GET /drug/expired/**: Get expired drug.
+- **GET /drug/low-stock/**: Get low stock drug.
+- **GET /drug/restock/:id**:Restock a drug.
+
+
+
+**Inventory Endpoints**
+
+- **POST /inventory/**: Create inventory.
+- **GET /inventory/**: Get inventories.
+- **GET /inventory/low-stock**: Get low stock inventories.
+- **GET /inventory/:id**: Get an inventory.
+- **UPDATE /inventory/:id**: Update an inventory.
+- **DELETE /inventory/:id**: Delete an inventory.
+- **UPDATE /inventory/restock/:id**: Restock an inventory.
+
+
+
+
+**Billing Endpoints**
+
+- **POST /invoice/**: Create invoice.
+- **GET /invoice/user**: User get all invoice.
+- **GET /invoice/user/paid-invoices**: User get all paid invoice.
+- **GET /invoice/user/unpaid-invoices**: User get all unpaid invoice.
+- **GET /invoice/paid-invoices**: Get all paid invoice.
+- **GET /invoice/unpaid-invoices**: Get all unpaid invoice.
+- **GET /invoice/:id**: Get an invoice.
+- **POST /invoice/patient/:id**: Get patient invoice.
+- **UPDATE /invoice/pay/:invoiceId**: Make payment.
+- **GET /invoice/status/:id**: Check payment status.
+- **GET /invoice/download/:id**: Download receipt.
 

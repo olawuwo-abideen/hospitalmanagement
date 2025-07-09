@@ -29,13 +29,13 @@ inventory: savedInventory,
 };
 }
 
-public async getInventories(pagination: PaginationDto): Promise<{ message: string; inventorys: Inventory[] }> {
+public async getInventories(pagination: PaginationDto): Promise<{ message: string; inventories: Inventory[] }> {
 const { page = 1, pageSize = 10 } = pagination;
-const [inventorys] = await this.inventoryRepository.findAndCount({
+const [inventories] = await this.inventoryRepository.findAndCount({
 skip: (page - 1) * pageSize,
 take: pageSize,
 });
-return { message: 'Inventory retrieved successfully', inventorys };
+return { message: 'Inventories retrieved successfully', inventories };
 }
 
 

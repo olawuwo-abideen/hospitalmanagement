@@ -15,6 +15,7 @@ import { Appointment } from './appointment.entity';
 import { AvailabilitySlot } from './availabilityslot.entity';
 import { Admission } from './admission.dto';
 import { LabTest } from './laboratory.entity';
+import { Invoice } from './invoice.entity';
 
 export enum UserRole {
 PATIENT = 'patient',
@@ -22,7 +23,8 @@ DOCTOR = 'doctor',
 NURSE = 'nurse',
 RECEPTIONIST = 'receptionist',
 PHARMACIST = 'pharmacist',
-LABTECHNICIAN = 'lab technician'
+LABTECHNICIAN = 'labtechnician',
+ACCOUNTANT = 'accountant'
 }
 
 export enum DoctorSpecilization {
@@ -132,6 +134,8 @@ admissions: Admission[];
 @OneToMany(() => LabTest, (labTest) => labTest.patient)
 labTests: LabTest[];
 
+@OneToMany(() => Invoice, (invoice) => invoice.patient)
+invoices: Invoice[];
 
 @CreateDateColumn({
 name: 'created_at',

@@ -13,7 +13,7 @@ export class AdminLoginDto {
 @ApiProperty({
 required: true,
 description: 'Email address of the user',
-example: 'abideenolawuwo@gmail.com',
+example: 'admin@hospital.management',
 })
 @IsNotEmpty()
 @IsEmail()
@@ -22,7 +22,7 @@ email: string;
 @ApiProperty({
 required: true,
 description: 'The user password (at least 8 characters)',
-example: 'Password123--',
+example: 'Hospital@2025',
 })
 @IsNotEmpty()
 @IsString()

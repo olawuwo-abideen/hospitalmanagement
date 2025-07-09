@@ -17,6 +17,7 @@ import { Inventory } from 'src/shared/entities/inventory.entity';
 import { Admission } from 'src/shared/entities/admission.dto';
 import { Appointment } from 'src/shared/entities/appointment.entity';
 import { PassportModule } from '@nestjs/passport';
+import { Invoice } from 'src/shared/entities/invoice.entity';
 
 @Module({
 imports: [
@@ -29,7 +30,7 @@ expiresIn: `${configService.get<string>('JWT_EXPIRES_IN')}`,
 },
 }),
 }),
-TypeOrmModule.forFeature([Admin, Bed, User, Ward, Inventory, Admission, Appointment]),
+TypeOrmModule.forFeature([Admin, Bed, User, Ward, Inventory, Admission,Invoice, Appointment]),
 PassportModule,
 UserModule,
 ConfigModule,

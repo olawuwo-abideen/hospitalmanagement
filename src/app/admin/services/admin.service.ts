@@ -20,6 +20,8 @@ import { PaginationDto } from 'src/shared/dtos/pagination.dto';
 import { Admission } from 'src/shared/entities/admission.dto';
 import { Inventory } from 'src/shared/entities/inventory.entity';
 import { Appointment } from 'src/shared/entities/appointment.entity';
+import { Invoice, PaymentStatus } from 'src/shared/entities/invoice.entity';
+
 
 @Injectable()
 export class AdminService implements OnModuleInit {
@@ -40,6 +42,8 @@ private readonly admissionRepository: Repository<Admission>,
 private readonly inventoryRepository: Repository<Inventory>,
 @InjectRepository(Appointment) 
 private readonly appointmentRepository: Repository<Appointment>,
+@InjectRepository(Invoice) 
+private readonly invoiceRepository: Repository<Invoice>,
 
 ) {}
 
@@ -79,6 +83,23 @@ public createAccessToken(admin: Admin): string {
 return this.jwtService.sign({ sub: admin.id, role: 'admin' });
 }
 
+// role: 'admin'
+
+async getRevenueStats() {
+const totalRevenue = await this.invoiceRepository
+.createQueryBuilder('invoice')
+.select('SUM(invoice.amount)', 'sum')
+.where('invoice.status = :status', { status: PaymentStatus.PAID })
+.getRawOne();
+
+const totalPaid = Number(totalRevenue.sum || 0);
+const totalCount = await this.invoiceRepository.count({ where: { status: PaymentStatus.PAID } });
+return {
+message: 'Revenue stats retrieved',
+totalRevenue: totalPaid,
+totalPaidInvoices: totalCount,
+};
+}
 
  async getMonthlyAdmissions(month: number, year: number) {
     const from = new Date(year, month - 1, 1);
@@ -133,7 +154,8 @@ public async getAllStaffs(pagination: PaginationDto): Promise<{ message: string;
     UserRole.NURSE,
     UserRole.RECEPTIONIST,
     UserRole.PHARMACIST,
-    UserRole.LABTECHNICIAN
+    UserRole.LABTECHNICIAN,
+UserRole.ACCOUNTANT
   ];
 
   const [data] = await this.userRepository.findAndCount({
@@ -156,7 +178,8 @@ public async countAllStaffs(): Promise<{ message: string; total: number }> {
     UserRole.NURSE,
     UserRole.RECEPTIONIST,
     UserRole.PHARMACIST,
-    UserRole.LABTECHNICIAN
+    UserRole.LABTECHNICIAN,
+    UserRole.ACCOUNTANT
   ];
 
   const total = await this.userRepository.count({
@@ -228,7 +251,6 @@ accountActivation: user.accountActivation,
 
 public async activateStaffAccount(id: string): Promise<{ message: string }> {
   const user = await this.userRepository.findOne({ where: { id: id } });
-  console.log('Activating user with ID:', id, 'Found user:', user);
   if (!user) {
     throw new NotFoundException(`User with ID ${id} not found.`);
   }

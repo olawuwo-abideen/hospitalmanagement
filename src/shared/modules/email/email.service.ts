@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
 import { User } from '../../entities/user.entity';
+import { Invoice } from 'src/shared/entities/invoice.entity';
 
 @Injectable()
 export class EmailService {
@@ -43,4 +44,32 @@ export class EmailService {
       throw new BadRequestException('Error sending reset password link');
     }
   }
+
+
+
+
+   public async sendSuccessfulPaymentMail(invoice: Invoice) {
+    const { patient } = invoice;
+    const formattedDate = invoice.paidAt.toLocaleString();
+
+    await this.sendMail({
+      to: patient.email,
+      subject: '✅ Payment Successful - Hospital Invoice',
+      html: `
+        <h2>Payment Confirmation</h2>
+        <p>Hi ${patient.firstname},</p>
+        <p>Your payment for Invoice <strong>${invoice.id}</strong> was successful.</p>
+        <p><strong>Amount:</strong> $${invoice.amount.toFixed(2)}</p>
+        <p><strong>Paid on:</strong> ${formattedDate}</p>
+        <br/>
+        <p>Thank you for using our hospital services.</p>
+        <p><strong>Billing Department</strong></p>
+      `,
+    });
+  }
+
+
+
+
+
 }

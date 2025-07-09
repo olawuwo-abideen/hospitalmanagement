@@ -18,6 +18,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ClassSerializerInterceptor } from '@nestjs/common';
 import { LaboratoryModule } from './laboratory/laboratory.module';
 import { InventoryModule } from './inventory/inventory.module';
+import { BillingModule } from './billing/billing.module';
 
 @Module({
 imports: [
@@ -47,8 +48,8 @@ WardModule,
 ReviewModule, 
 PharmacyModule, 
 LaboratoryModule, 
-InventoryModule
-
+InventoryModule,
+BillingModule
 ],
 controllers: [],
 providers: [
