@@ -46,7 +46,7 @@ app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   });
 
     app.getHttpAdapter().get('/', (_, res) => {
-    res.redirect('/api-docs');
+    res.redirect('/docs');
   });
 
   await app.listen(port, '0.0.0.0')  || 3000;

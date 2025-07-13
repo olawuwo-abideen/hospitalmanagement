@@ -9,7 +9,6 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { IncomingMessage } from 'http';
 import { Reflector } from '@nestjs/core';
-import { isString } from 'class-validator';
 import { IS_PUBLIC_KEY } from '../../../shared/decorators/public.decorator';
 import { AdminService } from '../services/admin.service';
 import { Admin } from '../../../shared/entities/admin.entity';

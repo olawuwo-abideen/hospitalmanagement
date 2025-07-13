@@ -43,7 +43,7 @@ lowStockThreshold: number;
 @Column('int')
 quantity: number;
 
-@Column({ type: 'datetime', nullable: true })
+@Column({ type: 'timestamp', nullable: true })
 expiryDate: Date;
 
 @Column({ type: 'enum', enum: DrugCategory})

@@ -12,7 +12,6 @@ import { Ward } from 'src/shared/entities/ward.entity';
 import { WardModule } from '../ward/ward.module';
 import { BedModule } from '../bed/bed.module';
 import { AdminAuthGuard } from './guards/adminguard';
-import { APP_GUARD } from '@nestjs/core';
 import { Inventory } from 'src/shared/entities/inventory.entity';
 import { Admission } from 'src/shared/entities/admission.dto';
 import { Appointment } from 'src/shared/entities/appointment.entity';

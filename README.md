@@ -1,6 +1,30 @@
 Hospital Management Application
 
-The Hospital Management Application is a robust backend system designed to manage Admin, Medical Records, Bed management, Appointment Scheduling, Ward Management, Pharmacy, Review and Patient roles with secure authentication and role-based access control. It enables patient record management, appointment scheduling, doctor review and medical history tracking while ensuring data privacy.
+
+### 🏥 Hospital Management Application — Backend API
+
+The **Hospital Management Application** is a robust and comprehensive backend system designed to streamline the operations of modern healthcare facilities. Built with **NestJS** and **MySQL**, it provides secure, scalable modules for managing **Admin operations**, **Patient records**, **Medical history**, **Appointment scheduling**, **Pharmacy**, **Ward and Bed management**, **Billing**, and **Reviews**.
+
+With built-in **JWT authentication**, optional **Two-Factor Authentication (2FA)**, and **role-based access control**, the system ensures secure access for Admin, Staff, and Patients. It supports complete patient lifecycle management including admissions, discharges, medical record tracking, appointment booking, and feedback — all while ensuring **data privacy and operational efficiency**.
+
+#### 🔐 Core Features:
+
+* **Role-Based Access Control** for Admins, Patients, and Staff
+* **JWT Authentication** with optional **Two-Factor Authentication (2FA)**
+* **Medical Record Management** and historical tracking
+* **Appointment Scheduling System** with availability slots
+* **Pharmacy & Inventory Module** with low stock alerts and expiry tracking
+* **Billing System** with invoice generation, Stripe integration, and payment status tracking
+* **Ward & Bed Assignment Module** with live admission/discharge updates
+* **Admin Dashboard Endpoints** for analytics (revenue, appointments, discharges, inventory stats)
+
+#### 🚀 Tech Stack:
+
+* **Backend**: NestJS (Node.js)
+* **Database**: MYSQL
+* **Authentication**: JWT + 2FA
+* **Mailing**: SMTP via Ethereal
+* **API Docs**: Swagger/OpenAPI (`/api-docs`)
 
 Installation
 
