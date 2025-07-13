@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
-import { User } from 'src/shared/entities/user.entity';
+import { User } from '../../shared/entities/user.entity';
 import { Exclude } from 'class-transformer';
 
 export enum PaymentStatus {

@@ -1,14 +1,14 @@
 import { Body, Controller, Get, HttpStatus, Param, Post, Query, Res, UseGuards } from '@nestjs/common';
 import { BillingService } from '../services/billing.service';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Roles } from 'src/shared/decorators/roles.decorator';
-import { User, UserRole } from 'src/shared/entities/user.entity';
+import { Roles } from '../../../shared/decorators/roles.decorator';
+import { User, UserRole } from '../../../shared/entities/user.entity';
 import { CreateInvoiceDto, PayInvoiceDto } from '../dto/invoice.dto';
-import { IsValidUUIDPipe } from 'src/shared/pipes/is-valid-uuid.pipe';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
-import { CurrentUser } from 'src/shared/decorators/current-user.decorator';
+import { IsValidUUIDPipe } from '../../../shared/pipes/is-valid-uuid.pipe';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
+import { CurrentUser } from '../../../shared/decorators/current-user.decorator';
 import { Response } from 'express';
-import { AuthGuard } from 'src/app/auth/guards/auth.guard';
+import { AuthGuard } from '../../../app/auth/guards/auth.guard';
 
 @ApiBearerAuth()
 @ApiTags('Billing')

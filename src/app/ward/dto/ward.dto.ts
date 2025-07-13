@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
-import { BedStatus, BedType } from 'src/shared/entities/bed.entity';
-import { Department } from 'src/shared/entities/ward.entity';
+import { BedStatus, BedType } from '../../../shared/entities/bed.entity';
+import { Department } from '../../../shared/entities/ward.entity';
 
 export class CreateWardDto {
 

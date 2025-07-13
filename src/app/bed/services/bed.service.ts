@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Bed, BedStatus } from 'src/shared/entities/bed.entity';
+import { Bed, BedStatus } from '../../../shared/entities/bed.entity';
 import { Repository } from 'typeorm';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
 
 @Injectable()
 export class BedService {

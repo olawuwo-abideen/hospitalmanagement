@@ -2,21 +2,21 @@ import { forwardRef, Module } from '@nestjs/common';
 import { AdminController } from './controllers/admin.controller';
 import { AdminService } from './services/admin.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Admin } from 'src/shared/entities/admin.entity';
-import { User } from 'src/shared/entities/user.entity';
+import { Admin } from '../../shared/entities/admin.entity';
+import { User } from '../../shared/entities/user.entity';
 import { UserModule } from '../user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { Bed } from 'src/shared/entities/bed.entity';
-import { Ward } from 'src/shared/entities/ward.entity';
+import { Bed } from '../../shared/entities/bed.entity';
+import { Ward } from '../../shared/entities/ward.entity';
 import { WardModule } from '../ward/ward.module';
 import { BedModule } from '../bed/bed.module';
 import { AdminAuthGuard } from './guards/adminguard';
-import { Inventory } from 'src/shared/entities/inventory.entity';
-import { Admission } from 'src/shared/entities/admission.dto';
-import { Appointment } from 'src/shared/entities/appointment.entity';
+import { Inventory } from '../../shared/entities/inventory.entity';
+import { Admission } from '../../shared/entities/admission.dto';
+import { Appointment } from '../../shared/entities/appointment.entity';
 import { PassportModule } from '@nestjs/passport';
-import { Invoice } from 'src/shared/entities/invoice.entity';
+import { Invoice } from '../../shared/entities/invoice.entity';
 
 @Module({
 imports: [

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsInt, IsNotEmpty, IsString, Min } from 'class-validator';
-import { SupplyCategory } from 'src/shared/entities/inventory.entity';
+import { SupplyCategory } from '../../../shared/entities/inventory.entity';
 
 export class CreateInventoryDto {
 

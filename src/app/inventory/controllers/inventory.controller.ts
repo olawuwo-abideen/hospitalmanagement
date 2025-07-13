@@ -25,11 +25,11 @@ import {
   UpdateInventoryDto,
 } from '../dto/inventory.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { UserRole } from 'src/shared/entities/user.entity';
-import { Roles } from 'src/shared/decorators/roles.decorator';
+import { UserRole } from '../../../shared/entities/user.entity';
+import { Roles } from '../../../shared/decorators/roles.decorator';
 import { InventoryService } from '../services/inventory.service';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
-import { IsValidUUIDPipe } from 'src/shared/pipes/is-valid-uuid.pipe';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
+import { IsValidUUIDPipe } from '../../../shared/pipes/is-valid-uuid.pipe';
 
 @ApiBearerAuth()
 @ApiTags('Inventory')

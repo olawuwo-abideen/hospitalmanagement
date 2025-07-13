@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDate, IsDateString, IsInt, IsNotEmpty, IsString, Min } from 'class-validator';
-import { DrugCategory } from 'src/shared/entities/drug.entity';
+import { DrugCategory } from '../../../shared/entities/drug.entity';
 
 export class CreateDrugDto {
 

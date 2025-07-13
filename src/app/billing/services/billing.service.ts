@@ -1,15 +1,15 @@
 import { ForbiddenException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Invoice, PaymentStatus } from 'src/shared/entities/invoice.entity';
-import { User } from 'src/shared/entities/user.entity';
+import { Invoice, PaymentStatus } from '../../../shared/entities/invoice.entity';
+import { User } from '../../../shared/entities/user.entity';
 import { In, Repository } from 'typeorm';
 import { CreateInvoiceDto, PayInvoiceDto } from '../dto/invoice.dto';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
 import Stripe from 'stripe';
 import * as PDFDocument from 'pdfkit'; 
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
-import { EmailService } from 'src/shared/modules/email/email.service';
+import { EmailService } from '../../../shared/modules/email/email.service';
 
 @Injectable()
 export class BillingService {

@@ -11,16 +11,16 @@ import { AdminLoginDto } from '../dto/admin-login.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcryptjs';
-import { Bed } from 'src/shared/entities/bed.entity';
-import { CreateBedDto, UpdateBedDto } from 'src/app/bed/dto/bed.dto';
-import { Ward } from 'src/shared/entities/ward.entity';
-import { CreateWardDto, UpdateWardDto } from 'src/app/ward/dto/ward.dto';
-import { User, UserRole } from 'src/shared/entities/user.entity';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
-import { Admission } from 'src/shared/entities/admission.dto';
-import { Inventory } from 'src/shared/entities/inventory.entity';
-import { Appointment } from 'src/shared/entities/appointment.entity';
-import { Invoice, PaymentStatus } from 'src/shared/entities/invoice.entity';
+import { Bed } from '../../../shared/entities/bed.entity';
+import { CreateBedDto, UpdateBedDto } from '../../../app/bed/dto/bed.dto';
+import { Ward } from '../../../shared/entities/ward.entity';
+import { CreateWardDto, UpdateWardDto } from '../../../app/ward/dto/ward.dto';
+import { User, UserRole } from '../../../shared/entities/user.entity';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
+import { Admission } from '../../../shared/entities/admission.dto';
+import { Inventory } from '../../../shared/entities/inventory.entity';
+import { Appointment } from '../../../shared/entities/appointment.entity';
+import { Invoice, PaymentStatus } from '../../../shared/entities/invoice.entity';
 
 
 @Injectable()

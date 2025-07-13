@@ -5,9 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
-import { Bed } from 'src/shared/entities/bed.entity';
-import { User } from 'src/shared/entities/user.entity';
-import { Ward } from 'src/shared/entities/ward.entity';
+import { Bed } from '../../shared/entities/bed.entity';
+import { User } from '../../shared/entities/user.entity';
+import { Ward } from '../../shared/entities/ward.entity';
 import { PassportModule } from '@nestjs/passport';
 
 @Module({

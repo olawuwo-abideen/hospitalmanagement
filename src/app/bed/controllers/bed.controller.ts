@@ -1,8 +1,8 @@
 import { Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { IsValidUUIDPipe } from 'src/shared/pipes/is-valid-uuid.pipe';
+import { IsValidUUIDPipe } from '../../../shared/pipes/is-valid-uuid.pipe';
 import { BedService } from '../services/bed.service';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
 
 
 @ApiBearerAuth()

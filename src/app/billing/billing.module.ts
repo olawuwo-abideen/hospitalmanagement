@@ -6,9 +6,9 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
-import { User } from 'src/shared/entities/user.entity';
-import { Invoice } from 'src/shared/entities/invoice.entity';
-import { EmailModule } from 'src/shared/modules/email/email.module';
+import { User } from '../../shared/entities/user.entity';
+import { Invoice } from '../../shared/entities/invoice.entity';
+import { EmailModule } from '../../shared/modules/email/email.module';
 
 @Module({
     imports: [

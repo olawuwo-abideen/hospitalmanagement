@@ -2,11 +2,11 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Put, Que
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateDrugDto, RestockDrugDto, UpdateDrugDto } from '../dto/drug.dto';
 import { AuthGuard } from '../../../app/auth/guards/auth.guard';
-import { Roles } from 'src/shared/decorators/roles.decorator';
-import { UserRole } from 'src/shared/entities/user.entity';
-import { IsValidUUIDPipe } from 'src/shared/pipes/is-valid-uuid.pipe';
+import { Roles } from '../../../shared/decorators/roles.decorator';
+import { UserRole } from '../../../shared/entities/user.entity';
+import { IsValidUUIDPipe } from '../../../shared/pipes/is-valid-uuid.pipe';
 import { PharmacyService } from '../services/pharmacy.service';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
 
 @ApiBearerAuth()
 @ApiTags('Pharmacy')

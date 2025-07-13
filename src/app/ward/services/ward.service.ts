@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Bed } from 'src/shared/entities/bed.entity';
-import { Ward } from 'src/shared/entities/ward.entity';
+import { Bed } from '../../../shared/entities/bed.entity';
+import { Ward } from '../../../shared/entities/ward.entity';
 import { ILike, Repository } from 'typeorm';
 import { CreateWardDto, UpdateWardDto } from '../dto/ward.dto';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
 
 @Injectable()
 export class WardService {

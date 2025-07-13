@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LabTest } from 'src/shared/entities/laboratory.entity';
-import { User } from 'src/shared/entities/user.entity';
+import { LabTest } from '../../../shared/entities/laboratory.entity';
+import { User } from '../../../shared/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateLabTestDto, UpdateLabResultDto } from '../dto/test.dto';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
 
 @Injectable()
 export class LaboratoryService {

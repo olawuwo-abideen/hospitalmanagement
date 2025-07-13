@@ -5,7 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
 import { User } from '../../entities/user.entity';
-import { Invoice } from 'src/shared/entities/invoice.entity';
+import { Invoice } from '../../../shared/entities/invoice.entity';
 
 @Injectable()
 export class EmailService {

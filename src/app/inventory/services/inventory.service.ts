@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateInventoryDto, RestockInventoryDto, UpdateInventoryDto  } from '../dto/inventory.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Inventory } from 'src/shared/entities/inventory.entity';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { Inventory } from '../../../shared/entities/inventory.entity';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
 
 @Injectable()
 export class InventoryService {

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
-import { StripePaymentMethod } from 'src/shared/entities/invoice.entity';
+import { StripePaymentMethod } from '../../../shared/entities/invoice.entity';
 
 export class CreateInvoiceDto {
 

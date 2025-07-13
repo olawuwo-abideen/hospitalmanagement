@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { User } from 'src/shared/entities/user.entity';
+import { User } from '../../../shared/entities/user.entity';
 import { CreateDrugDto, RestockDrugDto, UpdateDrugDto } from '../dto/drug.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Drug } from 'src/shared/entities/drug.entity';
+import { Drug } from '../../../shared/entities/drug.entity';
 import { LessThan, Like, Raw, Repository } from 'typeorm';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
 
 
 @Injectable()

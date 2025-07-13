@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
-import { Admission, PatientStatus } from 'src/shared/entities/admission.dto';
-import { User, UserRole } from 'src/shared/entities/user.entity';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
+import { Admission, PatientStatus } from '../../../shared/entities/admission.dto';
+import { User, UserRole } from '../../../shared/entities/user.entity';
 import { ILike, Repository } from 'typeorm';
 
 @Injectable()

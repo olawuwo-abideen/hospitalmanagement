@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from '../../../shared/entities/user.entity';
 import { Review } from '../../../shared/entities/review.entity';
 import { CreateReviewDto, UpdateReviewDto } from '../dto/review.dto';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
 
 @Injectable()
 export class ReviewService {

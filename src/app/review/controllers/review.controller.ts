@@ -7,7 +7,7 @@ import { CreateReviewDto, UpdateReviewDto } from '../dto/review.dto';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../../../app/auth/guards/auth.guard';
 import { Roles } from '../../../shared/decorators/roles.decorator';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
 
 @ApiBearerAuth()
 @ApiTags('Review')

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsUUID, IsEnum, IsString } from 'class-validator';
-import { LabTestStatus, LabTestType } from 'src/shared/entities/laboratory.entity';
+import { LabTestStatus, LabTestType } from '../../../shared/entities/laboratory.entity';
 
 export class CreateLabTestDto {
   @ApiProperty({

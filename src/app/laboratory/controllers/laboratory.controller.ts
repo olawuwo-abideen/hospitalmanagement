@@ -18,15 +18,15 @@ ApiQuery,
 ApiResponse,
 ApiTags,
 } from '@nestjs/swagger';
-import { Roles } from 'src/shared/decorators/roles.decorator';
-import { UserRole } from 'src/shared/entities/user.entity';
-import { IsValidUUIDPipe } from 'src/shared/pipes/is-valid-uuid.pipe';
+import { Roles } from '../../../shared/decorators/roles.decorator';
+import { UserRole } from '../../../shared/entities/user.entity';
+import { IsValidUUIDPipe } from '../../../shared/pipes/is-valid-uuid.pipe';
 import { LaboratoryService } from '../services/laboratory.service';
 import {
 CreateLabTestDto,
 UpdateLabResultDto,
 } from '../dto/test.dto';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
 
 @ApiBearerAuth()
 @ApiTags('Laboratory')

@@ -1,11 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { IsValidUUIDPipe } from 'src/shared/pipes/is-valid-uuid.pipe';
+import { IsValidUUIDPipe } from '../../../shared/pipes/is-valid-uuid.pipe';
 import { WardService } from '../services/ward.service';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
-import { Roles } from 'src/shared/decorators/roles.decorator';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
+import { Roles } from '../../../shared/decorators/roles.decorator';
 import { AuthGuard } from '../../../app/auth/guards/auth.guard';
-import { UserRole } from 'src/shared/entities/user.entity';
+import { UserRole } from '../../../shared/entities/user.entity';
 
 @ApiBearerAuth()
 @ApiTags('Ward')

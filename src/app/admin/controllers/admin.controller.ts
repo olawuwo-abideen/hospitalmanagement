@@ -2,12 +2,12 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, UseGuard
 import { AdminService } from '../services/admin.service';
 import { AdminLoginDto } from '../dto/admin-login.dto';
 import { Public } from '../../../shared/decorators/public.decorator';
-import { CreateBedDto, UpdateBedDto } from 'src/app/bed/dto/bed.dto';
+import { CreateBedDto, UpdateBedDto } from '../../../app/bed/dto/bed.dto';
 import { ApiBearerAuth, ApiOperation, ApiQuery } from '@nestjs/swagger';
-import { IsValidUUIDPipe } from 'src/shared/pipes/is-valid-uuid.pipe';
-import { CreateWardDto, UpdateWardDto } from 'src/app/ward/dto/ward.dto';
+import { IsValidUUIDPipe } from '../../../shared/pipes/is-valid-uuid.pipe';
+import { CreateWardDto, UpdateWardDto } from '../../../app/ward/dto/ward.dto';
 import { AdminAuthGuard } from '../guards/adminguard';
-import { PaginationDto } from 'src/shared/dtos/pagination.dto';
+import { PaginationDto } from '../../../shared/dtos/pagination.dto';
 
 
 @Controller('admin')
